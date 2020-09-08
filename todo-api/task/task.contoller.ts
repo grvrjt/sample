@@ -17,6 +17,10 @@ export class TaskController {
     async getAll(): Promise<Task[] | null> {
         return await this.taskService.getAllTasks();
     }
+    @Get('taskWithDetail')
+    async getBoth(): Promise<Task> {
+        return await this.taskService.getFromBothCollection();
+    }
 
     @Get(':id')
     async getById(@Param('id') taskId: string): Promise<Task> {
@@ -40,10 +44,7 @@ export class TaskController {
         return await this.taskService.createInDetailCollection(detail);
     }
 
-    @Post('taskWithDetail')
-    async getBoth(): Promise<Task> {
-        return await this.taskService.getFromBothCollection();
-    }
+    
 
     @Get('/TaskLevel/:level')
     async getByLevel(@Param('level') taskLevel: number): Promise<Task> {
