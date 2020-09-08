@@ -7,5 +7,5 @@ export class Task {
     @prop({ required: true })
     level: number
     @prop({ required: true })
-    taskCreatedAt:Date
+    taskCreatedAt: Date
 }

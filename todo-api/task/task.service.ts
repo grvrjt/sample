@@ -30,11 +30,11 @@ export class TaskService {
     }
 
     async updateTaskById(taskId: string, status: string): Promise<Task> {
-        return await this.taskModel.findOneAndUpdate({ _id: new ObjectId(taskId) }, { status: status })
+        return await this.taskModel.findOneAndUpdate({ _id: new ObjectId(taskId) }, { status: status }, { new: true })
     }
 
     async deleteTaskById(taskId: string): Promise<Task> {
-        return await this.taskModel.findByIdAndDelete({ _id: new ObjectId(taskId) });
+        return await this.taskModel.findByIdAndDelete(taskId);
     }
 
     async createInDetailCollection(createDetailDto: { level: number, detail: string }): Promise<TaskDetail> {
@@ -43,7 +43,6 @@ export class TaskService {
     }
 
     async getFromBothCollection(): Promise<Task | any> {
-        console.log("for getting the whole detail of the task services file called !!! ")
         return await this.taskModel.aggregate([{
             $lookup: {
                 from: 'taskdetails',
@@ -53,4 +52,5 @@ export class TaskService {
             }
         }]);
     }
+
 }

@@ -27,7 +27,6 @@ export class TaskController {
     async updateById(@Param('id') taskId: string,
         @Body('status') status: string,
     ): Promise<Task> {
-        console.log("id to be updated is ==>",taskId);
         return await this.taskService.updateTaskById(taskId, status);
     }
 
@@ -41,7 +40,7 @@ export class TaskController {
         return await this.taskService.createInDetailCollection(detail);
      }
     
-    @Post('both')
+    @Post('taskWithDeatil')
     async getBoth(): Promise<Task>{
         return await this.taskService.getFromBothCollection();
      }
