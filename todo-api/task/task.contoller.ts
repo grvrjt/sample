@@ -31,19 +31,24 @@ export class TaskController {
     }
 
     @Delete(':id')
-    async deleteById(@Param('id') taskId:string): Promise<Task> {
+    async deleteById(@Param('id') taskId: string): Promise<Task> {
         return await this.taskService.deleteTaskById(taskId);
     }
-    
+
     @Post('detail')
     async createDeatil(@Body() detail: TaskDetail): Promise<TaskDetail> {
         return await this.taskService.createInDetailCollection(detail);
-     }
-    
-    @Post('taskWithDeatil')
-    async getBoth(): Promise<Task>{
+    }
+
+    @Post('taskWithDetail')
+    async getBoth(): Promise<Task> {
         return await this.taskService.getFromBothCollection();
-     }
+    }
+
+    @Get('/TaskLevel/:level')
+    async getByLevel(@Param('level') taskLevel: number): Promise<Task> {
+        return await this.taskService.getTaskByLevel(taskLevel);
+    }
 
 
 }

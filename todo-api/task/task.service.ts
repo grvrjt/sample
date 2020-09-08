@@ -29,6 +29,10 @@ export class TaskService {
 
     }
 
+    async getTaskByLevel(taskLevel:number): Promise<Task> {
+        return await this.taskModel.find({ level: taskLevel})
+    }
+    
     async updateTaskById(taskId: string, status: string): Promise<Task> {
         return await this.taskModel.findOneAndUpdate({ _id: new ObjectId(taskId) }, { status: status }, { new: true })
     }
@@ -43,6 +47,7 @@ export class TaskService {
     }
 
     async getFromBothCollection(): Promise<Task | any> {
+        console.log("hello gaurav")
         return await this.taskModel.aggregate([{
             $lookup: {
                 from: 'taskdetails',

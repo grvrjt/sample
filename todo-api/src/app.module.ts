@@ -16,7 +16,7 @@ export class AppModule implements NestModule {
       .forRoutes({ path: 'task', method: RequestMethod.GET });
     consumer
       .apply(atBylevel)
-      .forRoutes({ path: 'task/level', method: RequestMethod.GET })
+      .forRoutes({ path: 'task/TaskLevel/:level', method: RequestMethod.GET })
   }
 
 

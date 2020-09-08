@@ -13,7 +13,7 @@
 import { Request, Response } from 'express';
 
 export function atCreation(req: Request, res: Response, next: Function) {
-    const taskCreatedAt = new Date().toLocaleString();
+    const taskCreatedAt =  new Date().toLocaleString();
         req.body.taskCreatedAt = taskCreatedAt;
     console.log("in the middleware function ===>",req.body);
         next(); 
