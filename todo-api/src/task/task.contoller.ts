@@ -2,7 +2,7 @@ import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/commo
 import { Task } from './task.model';
 import { TaskService } from './task.service';
 import { TaskDetail } from './taskDetail.model';
-import { post } from '@typegoose/typegoose';
+
 
 @Controller('task')
 export class TaskController {
