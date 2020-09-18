@@ -1,5 +1,4 @@
 
-const chalk = require('chalk');
 const speedTest = require('../speedCoreMgmnt');
 
 const speedServices = {};
@@ -25,7 +24,6 @@ const options = {};
 
 let paramError = null;
 for (let i = 2; i < process.argv.length; i++) {
-  console.log("------------------>");
   const arg = process.argv[i];
   const next = process.argv[i + 1];
   if (i >= 2) {
@@ -72,17 +70,10 @@ for (let i = 2; i < process.argv.length; i++) {
 }
 if (paramError) {
   console.error();
-  console.error(chalk.red(paramError));
   console.error();
   process.exit(1);
 }
-//TODO: belove is the event syntax for ping
-//  {
-//   type: 'ping',
-//   timestamp: 2020-09-16T18:14:46.000Z,
-//   ping: { jitter: 0, latency: 3.194, progress: 0.2 },
-//   progress: 0.017391304347826087
-// }
+
 var ping = '';
 var download = '';
 var upload = '';
