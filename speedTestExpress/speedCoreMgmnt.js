@@ -12,7 +12,6 @@ const decompressTar = require('decompress-tar');
 const decompressTarbz2 = require('decompress-tarbz2');
 const decompressTargz = require('decompress-targz');
 const decompressUnzip = require('decompress-unzip');
-// const decompressTarXz = require('decompress-tarxz');// TODO: COMMENTED due to error accure during installation
 const kill = require('tree-kill');
 
 function fileExists(file) {
@@ -153,7 +152,6 @@ async function ensureBinary(
         decompressTarbz2(),
         decompressTargz(),
         decompressUnzip(),
-        // decompressTarXz(), // TODO: COMMENTED due to error accure during installation
       ],
       filter: file => {
         return /(^|\/)speedtest(.exe)?$/.test(file.path);
