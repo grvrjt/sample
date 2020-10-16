@@ -53,5 +53,9 @@ export class TaskController {
         return await this.taskService.getTaskByLevel(taskLevel);
     }
 
+    @Post('aggregate')
+    async byAggregation(): Promise<Task> {
+        return await this.taskService.getByAggregate();
+    }
 
 }

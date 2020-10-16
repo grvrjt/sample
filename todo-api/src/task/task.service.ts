@@ -29,10 +29,10 @@ export class TaskService {
 
     }
 
-    async getTaskByLevel(taskLevel:number): Promise<Task> {
-        return await this.taskModel.find({ level: taskLevel})
+    async getTaskByLevel(taskLevel: number): Promise<Task> {
+        return await this.taskModel.find({ level: taskLevel })
     }
-    
+
     async updateTaskById(taskId: string, status: string): Promise<Task> {
         return await this.taskModel.findOneAndUpdate({ _id: new ObjectId(taskId) }, { status: status }, { new: true })
     }
@@ -45,7 +45,7 @@ export class TaskService {
         const createdDetail = new this.taskDetailModel(createDetailDto);
         return await createdDetail.save();
     }
-
+    // From here aggregation will be used for practice Start
     async getFromBothCollection(): Promise<Task | any> {
         console.log("hello gaurav")
         return await this.taskModel.aggregate([{
@@ -58,4 +58,16 @@ export class TaskService {
         }]);
     }
 
+    async getByAggregate(): Promise<Task | any> {
+        return await this.taskModel.aggregate([
+            {
+                $match: { status: "complete" }
+            },
+            {
+                $group: { _id: "$level" }
+            }
+        ]);
+    }
+
+    // Aggragation ends here.
 }
