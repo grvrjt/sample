@@ -1,4 +1,12 @@
-import { prop } from '@typegoose/typegoose';
+import { prop, modelOptions } from '@typegoose/typegoose';
+
+@modelOptions({
+    schemaOptions: {
+        versionKey: false,
+        timestamps: true,
+    },
+})
+
 export class Task {
     @prop({ required: true })
     task: string
@@ -6,6 +14,6 @@ export class Task {
     status: string
     @prop({ required: true })
     level: number
-    @prop({ required: true })
-    taskCreatedAt: Date
+    @prop({ required: [true,'username is required !!'] })
+    username: string
 }

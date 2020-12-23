@@ -4,22 +4,26 @@ import { InjectModel } from "nestjs-typegoose";
 import { ReturnModelType } from "@typegoose/typegoose";
 import { ObjectId } from "mongodb";
 import { TaskDetail } from "./taskDetail.model";
+import { InjectQueue } from "@nestjs/bull";
+import { Queue } from 'bull';
 
 @Injectable()
 export class TaskService {
     constructor(
         @InjectModel(Task) private readonly taskModel: ReturnModelType<typeof Task>,
-        @InjectModel(TaskDetail) private readonly taskDetailModel: ReturnModelType<typeof TaskDetail>
-
+        @InjectModel(TaskDetail) private readonly taskDetailModel: ReturnModelType<typeof TaskDetail>,
+        @InjectQueue('log') private readonly logQueue: Queue
     ) { }
 
-    async createTask(createTaskDto: { task: string, status: string }): Promise<Task> {
+    async createTask(createTaskDto: Task): Promise<Task> {
         const createdTask = new this.taskModel(createTaskDto);
-        return await createdTask.save();
+        const task = await createdTask.save();
+        await this.logQueue.add('createTask', createTaskDto, { delay: 30000,removeOnComplete:true });  //adding a job (named createdTask) to the queue.
+        return task;
     }
 
     async getAllTasks(): Promise<Task[] | null> {
-        var result: any[] = [];
+        let result: any[] = [];
         result = await this.taskModel.find().exec();
         return result;
     }

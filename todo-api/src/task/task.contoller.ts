@@ -1,12 +1,10 @@
-import { Controller, Post, Body, Get, Param, Patch, Delete, UseInterceptors } from '@nestjs/common'
-import { LoggingInterceptor } from './logging.interceptor';
+import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/common'
 import { Task } from './task.model';
 import { TaskService } from './task.service';
 import { TaskDetail } from './taskDetail.model';
 
 
 @Controller('task')
-@UseInterceptors(LoggingInterceptor)
 export class TaskController {
     constructor(private readonly taskService: TaskService) { }
 
